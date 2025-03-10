@@ -1,6 +1,4 @@
-#!/bin/sh
-'''exec' "/home/alex/code/websites/pb sermon/venv/bin/python3" "$0" "$@"
-' '''
+#!/home/alex/code/git/pb_website/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

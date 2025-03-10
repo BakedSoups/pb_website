@@ -540,3 +540,5 @@ NameError: name 'tempfile' is not defined. Did you mean: 'compile'? Or did you f
 2025-03-10 21:56:50,898 INFO: Large file detected (38.51 MB), skipping preprocessing [in /root/pb_website/app.py:148]
 2025-03-10 21:59:25,444 INFO: Transcription completed in 154.77 seconds [in /root/pb_website/app.py:183]
 2025-03-10 21:59:25,454 INFO: Sending response with transcript length: 33975 [in /root/pb_website/app.py:186]
+2025-03-10 15:36:36,872 INFO: Application startup [in /home/alex/code/git/pb_website/app.py:48]
+2025-03-10 15:36:37,350 INFO: Application startup [in /home/alex/code/git/pb_website/app.py:48]
