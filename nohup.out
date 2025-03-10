@@ -1,0 +1,208 @@
+[2025-03-10 21:12:21 +0000] [2459] [INFO] Starting gunicorn 23.0.0
+[2025-03-10 21:12:21 +0000] [2459] [INFO] Listening at: http://127.0.0.1:8000 (2459)
+[2025-03-10 21:12:21 +0000] [2459] [INFO] Using worker: sync
+[2025-03-10 21:12:21 +0000] [2460] [INFO] Booting worker with pid: 2460
+[2025-03-10 21:12:21 +0000] [2461] [INFO] Booting worker with pid: 2461
+[2025-03-10 21:12:21 +0000] [2462] [INFO] Booting worker with pid: 2462
+[2025-03-10 21:12:23,730] INFO in app: Application startup
+[2025-03-10 21:12:23,774] INFO in app: Application startup
+[2025-03-10 21:12:23,790] INFO in app: Application startup
+[2025-03-10 21:12:54,691] INFO in app: Received request with content length: 40376610 bytes
+[2025-03-10 21:12:55,069] INFO in app: Processing file: winter-of-wisdom-part-iii--pastor-benjamin-robinson.mp3, Size: 38.51 MB
+[2025-03-10 21:12:55,084] INFO in app: Loading audio file: temp_uploads/winter-of-wisdom-part-iii--pastor-benjamin-robinson.mp3
+[2025-03-10 21:13:03 +0000] [2459] [ERROR] Worker (pid:2460) was sent SIGKILL! Perhaps out of memory?
+[2025-03-10 21:13:03 +0000] [2471] [INFO] Booting worker with pid: 2471
+[2025-03-10 21:13:03,964] INFO in app: Application startup
+[2025-03-10 21:23:06 +0000] [2459] [INFO] Handling signal: term
+[2025-03-10 21:23:06 +0000] [2462] [INFO] Worker exiting (pid: 2462)
+Database initialized successfully.
+[2025-03-10 21:23:06 +0000] [2461] [INFO] Worker exiting (pid: 2461)
+Database initialized successfully.
+[2025-03-10 21:23:06 +0000] [2471] [INFO] Worker exiting (pid: 2471)
+Database initialized successfully.
+[2025-03-10 21:23:07 +0000] [2679] [INFO] Starting gunicorn 23.0.0
+[2025-03-10 21:23:07 +0000] [2679] [INFO] Listening at: http://127.0.0.1:8000 (2679)
+[2025-03-10 21:23:07 +0000] [2679] [INFO] Using worker: sync
+[2025-03-10 21:23:07 +0000] [2680] [INFO] Booting worker with pid: 2680
+[2025-03-10 21:23:07 +0000] [2681] [INFO] Booting worker with pid: 2681
+[2025-03-10 21:23:07 +0000] [2682] [INFO] Booting worker with pid: 2682
+[2025-03-10 21:23:07 +0000] [2459] [INFO] Shutting down: Master
+[2025-03-10 21:23:09,613] INFO in app: Application startup
+[2025-03-10 21:23:09,627] INFO in app: Application startup
+[2025-03-10 21:23:09,660] INFO in app: Application startup
+[2025-03-10 21:23:37,519] INFO in app: Received request with content length: 40376610 bytes
+[2025-03-10 21:23:37,911] INFO in app: Processing file: winter-of-wisdom-part-iii--pastor-benjamin-robinson.mp3, Size: 38.51 MB
+[2025-03-10 21:23:37,913] INFO in app: Large file detected (38.51 MB), skipping preprocessing
+[2025-03-10 21:23:41,388] ERROR in app: Error processing file winter-of-wisdom-part-iii--pastor-benjamin-robinson.mp3: Error code: 413 - {'error': {'message': '413: Maximum content size limit (26214400) exceeded (26430744 bytes read)', 'type': 'server_error', 'param': None, 'code': None}}
+[2025-03-10 21:23:41,390] ERROR in app: Traceback (most recent call last):
+  File "/root/pb_website/app.py", line 151, in transcribe_audio_route
+    transcript = transcribe_audio(audio_file)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/pb_website/transcriber.py", line 75, in transcribe_audio
+    response = client.audio.transcriptions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/pb_website/venv/lib/python3.12/site-packages/openai/resources/audio/transcriptions.py", line 188, in create
+    return self._post(  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/pb_website/venv/lib/python3.12/site-packages/openai/_base_client.py", line 1242, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/pb_website/venv/lib/python3.12/site-packages/openai/_base_client.py", line 919, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File "/root/pb_website/venv/lib/python3.12/site-packages/openai/_base_client.py", line 1023, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.APIStatusError: Error code: 413 - {'error': {'message': '413: Maximum content size limit (26214400) exceeded (26430744 bytes read)', 'type': 'server_error', 'param': None, 'code': None}}
+
+[2025-03-10 21:28:41 +0000] [2681] [INFO] Worker exiting (pid: 2681)
+Database initialized successfully.
+[2025-03-10 21:28:41 +0000] [2680] [INFO] Worker exiting (pid: 2680)
+Database initialized successfully.
+[2025-03-10 21:28:41 +0000] [2682] [INFO] Worker exiting (pid: 2682)
+Database initialized successfully.
+[2025-03-10 21:28:41 +0000] [2679] [INFO] Handling signal: term
+[2025-03-10 21:28:41 +0000] [2679] [ERROR] Worker (pid:2681) was sent SIGTERM!
+[2025-03-10 21:28:41 +0000] [2679] [ERROR] Worker (pid:2680) was sent SIGTERM!
+[2025-03-10 21:28:41 +0000] [2679] [ERROR] Worker (pid:2682) was sent SIGTERM!
+[2025-03-10 21:28:41 +0000] [2679] [INFO] Shutting down: Master
+[2025-03-10 21:28:41 +0000] [2786] [INFO] Starting gunicorn 23.0.0
+[2025-03-10 21:28:41 +0000] [2786] [INFO] Listening at: http://127.0.0.1:8000 (2786)
+[2025-03-10 21:28:41 +0000] [2786] [INFO] Using worker: sync
+[2025-03-10 21:28:41 +0000] [2787] [INFO] Booting worker with pid: 2787
+[2025-03-10 21:28:41 +0000] [2788] [INFO] Booting worker with pid: 2788
+[2025-03-10 21:28:41 +0000] [2789] [INFO] Booting worker with pid: 2789
+[2025-03-10 21:28:43 +0000] [2787] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/root/pb_website/venv/lib/python3.12/site-packages/gunicorn/arbiter.py", line 608, in spawn_worker
+    worker.init_process()
+  File "/root/pb_website/venv/lib/python3.12/site-packages/gunicorn/workers/base.py", line 135, in init_process
+    self.load_wsgi()
+  File "/root/pb_website/venv/lib/python3.12/site-packages/gunicorn/workers/base.py", line 147, in load_wsgi
+    self.wsgi = self.app.wsgi()
+                ^^^^^^^^^^^^^^^
+  File "/root/pb_website/venv/lib/python3.12/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+                    ^^^^^^^^^^^
+  File "/root/pb_website/venv/lib/python3.12/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/pb_website/venv/lib/python3.12/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/pb_website/venv/lib/python3.12/site-packages/gunicorn/util.py", line 370, in import_app
+    mod = importlib.import_module(module)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/root/pb_website/app.py", line 21, in <module>
+    from transcriber import remove_silence, preprocess_audio, transcribe_audio
+  File "/root/pb_website/transcriber.py", line 103, in <module>
+    def ensure_file_size_limit(file_path, max_size=OPENAI_FILE_SIZE_LIMIT):
+                                                   ^^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'OPENAI_FILE_SIZE_LIMIT' is not defined
+[2025-03-10 21:28:43 +0000] [2787] [INFO] Worker exiting (pid: 2787)
+[2025-03-10 21:28:43 +0000] [2788] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/root/pb_website/venv/lib/python3.12/site-packages/gunicorn/arbiter.py", line 608, in spawn_worker
+    worker.init_process()
+  File "/root/pb_website/venv/lib/python3.12/site-packages/gunicorn/workers/base.py", line 135, in init_process
+    self.load_wsgi()
+  File "/root/pb_website/venv/lib/python3.12/site-packages/gunicorn/workers/base.py", line 147, in load_wsgi
+    self.wsgi = self.app.wsgi()
+                ^^^^^^^^^^^^^^^
+  File "/root/pb_website/venv/lib/python3.12/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+                    ^^^^^^^^^^^
+  File "/root/pb_website/venv/lib/python3.12/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/pb_website/venv/lib/python3.12/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/pb_website/venv/lib/python3.12/site-packages/gunicorn/util.py", line 370, in import_app
+    mod = importlib.import_module(module)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/root/pb_website/app.py", line 21, in <module>
+    from transcriber import remove_silence, preprocess_audio, transcribe_audio
+  File "/root/pb_website/transcriber.py", line 103, in <module>
+    def ensure_file_size_limit(file_path, max_size=OPENAI_FILE_SIZE_LIMIT):
+                                                   ^^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'OPENAI_FILE_SIZE_LIMIT' is not defined
+[2025-03-10 21:28:43 +0000] [2788] [INFO] Worker exiting (pid: 2788)
+[2025-03-10 21:28:43 +0000] [2789] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/root/pb_website/venv/lib/python3.12/site-packages/gunicorn/arbiter.py", line 608, in spawn_worker
+    worker.init_process()
+  File "/root/pb_website/venv/lib/python3.12/site-packages/gunicorn/workers/base.py", line 135, in init_process
+    self.load_wsgi()
+  File "/root/pb_website/venv/lib/python3.12/site-packages/gunicorn/workers/base.py", line 147, in load_wsgi
+    self.wsgi = self.app.wsgi()
+                ^^^^^^^^^^^^^^^
+  File "/root/pb_website/venv/lib/python3.12/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+                    ^^^^^^^^^^^
+  File "/root/pb_website/venv/lib/python3.12/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/pb_website/venv/lib/python3.12/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/pb_website/venv/lib/python3.12/site-packages/gunicorn/util.py", line 370, in import_app
+    mod = importlib.import_module(module)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/root/pb_website/app.py", line 21, in <module>
+    from transcriber import remove_silence, preprocess_audio, transcribe_audio
+  File "/root/pb_website/transcriber.py", line 103, in <module>
+    def ensure_file_size_limit(file_path, max_size=OPENAI_FILE_SIZE_LIMIT):
+                                                   ^^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'OPENAI_FILE_SIZE_LIMIT' is not defined
+[2025-03-10 21:28:43 +0000] [2789] [INFO] Worker exiting (pid: 2789)
+[2025-03-10 21:28:44 +0000] [2786] [ERROR] Worker (pid:2787) exited with code 3
+[2025-03-10 21:28:44 +0000] [2786] [ERROR] Worker (pid:2788) was sent SIGTERM!
+[2025-03-10 21:28:44 +0000] [2786] [ERROR] Worker (pid:2789) was sent SIGTERM!
+[2025-03-10 21:28:44 +0000] [2786] [ERROR] Shutting down: Master
+[2025-03-10 21:28:44 +0000] [2786] [ERROR] Reason: Worker failed to boot.
+[2025-03-10 21:55:50 +0000] [3734] [INFO] Starting gunicorn 23.0.0
+[2025-03-10 21:55:50 +0000] [3734] [INFO] Listening at: http://127.0.0.1:8000 (3734)
+[2025-03-10 21:55:50 +0000] [3734] [INFO] Using worker: sync
+[2025-03-10 21:55:50 +0000] [3735] [INFO] Booting worker with pid: 3735
+[2025-03-10 21:55:50 +0000] [3736] [INFO] Booting worker with pid: 3736
+[2025-03-10 21:55:50 +0000] [3737] [INFO] Booting worker with pid: 3737
+[2025-03-10 21:55:52,712] INFO in app: Application startup
+[2025-03-10 21:55:52,745] INFO in app: Application startup
+[2025-03-10 21:55:52,801] INFO in app: Application startup
+[2025-03-10 21:56:33,191] INFO in app: Received request with content length: 1868205 bytes
+[2025-03-10 21:56:33,204] INFO in app: Processing file: not-today-satan.mp3, Size: 1.78 MB
+[2025-03-10 21:56:33,204] INFO in app: Standard file size, using normal processing
+[2025-03-10 21:56:41,272] INFO in app: Transcription completed in 8.08 seconds
+[2025-03-10 21:56:41,273] INFO in app: Sending response with transcript length: 1116
+[2025-03-10 21:56:50,676] INFO in app: Received request with content length: 40376610 bytes
+[2025-03-10 21:56:50,898] INFO in app: Processing file: winter-of-wisdom-part-iii--pastor-benjamin-robinson.mp3, Size: 38.51 MB
+[2025-03-10 21:56:50,898] INFO in app: Large file detected (38.51 MB), skipping preprocessing
+[2025-03-10 21:59:25,444] INFO in app: Transcription completed in 154.77 seconds
+[2025-03-10 21:59:25,454] INFO in app: Sending response with transcript length: 33975
