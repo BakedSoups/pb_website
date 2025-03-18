@@ -1,11 +1,9 @@
-// This script replaces the existing JavaScript in your HTML file
 console.log('Script initialized');
 
 // DOM Elements
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM fully loaded');
     
-    // Check if elements exist
     const uploadBtn = document.getElementById('upload-btn');
     console.log('Upload button exists:', !!uploadBtn);
     
@@ -25,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const summaryContent = document.getElementById('summary-content');
     const regenerateBtn = document.getElementById('regenerate-btn');
     
-    // New summary control elements
     const wordCountInput = document.getElementById('word-count');
     const summaryStyleInput = document.getElementById('summary-style');
     const applySummarySettingsBtn = document.getElementById('apply-summary-settings');
@@ -35,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const chatInputText = document.getElementById('chat-input-text');
     const sendQuestionBtn = document.getElementById('send-question');
 
-    // Global variables
     let currentTranscript = '';
     let processing = false;
     let summarySettings = {
@@ -47,10 +43,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentJobId = null;
     let jobCheckInterval = null;
 
-    // API endpoints
     const API_BASE_URL = '/api';  // Use relative path for production
 
-    // Event listeners
     if (uploadBtn) {
         uploadBtn.addEventListener('click', () => {
             console.log('Upload button clicked');
@@ -81,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // New event listener for apply settings button
     if (applySummarySettingsBtn) {
         applySummarySettingsBtn.addEventListener('click', () => {
             console.log('Apply summary settings button clicked');
@@ -103,10 +96,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Set up change handlers for settings inputs
     setupSettingsChangeHandlers();
 
-    // Helper Functions
     function showLoading() {
         const loading = document.createElement('div');
         loading.className = 'loading';
@@ -121,7 +112,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const wave = document.createElement('div');
         wave.className = 'transcript-wave';
         
-        // Add 8 bars for the wave effect
         for (let i = 0; i < 8; i++) {
             const bar = document.createElement('div');
             bar.className = 'bar';
@@ -138,7 +128,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return loading;
     }
 
-    // Show large file processing message
     function showLargeFileProcessingMessage(jobId) {
         const container = document.createElement('div');
         container.style.textAlign = 'center';
@@ -167,7 +156,6 @@ document.addEventListener('DOMContentLoaded', function() {
         statusBox.style.marginBottom = '1.5rem';
         statusBox.textContent = 'Initializing...';
         
-        // Create a progress circle
         const progressCircle = document.createElement('div');
         progressCircle.className = 'loading';
         progressCircle.style.margin = '1.5rem auto';
@@ -180,7 +168,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         return container;
     }
-    // File upload and processing
     async function handleFileUpload(e) {
         console.log('Handle file upload called');
         const file = e.target.files[0];
@@ -191,7 +178,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         console.log('File selected:', file.name, file.type, file.size);
         
-        // Check file size and determine endpoint
         const fileSizeMB = file.size / (1024 * 1024);
         const isVeryLargeFile = fileSizeMB > 100; // Files > 100MB need special treatment
         const isLargeFile = fileSizeMB > 50; // Files > 50MB use the large file endpoint
@@ -200,7 +186,6 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(`Very large file detected: ${fileSizeMB.toFixed(2)} MB`);
             const confirmed = confirm(`This file is very large (${fileSizeMB.toFixed(2)} MB). Would you like to process only the first 30 minutes? This is recommended for better reliability.`);
             if (confirmed) {
-                // User chose to trim the file
                 console.log('User chose to trim the file to 30 minutes');
             } else {
                 console.log('User chose to process the entire file');
@@ -217,7 +202,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const validTypes = ['audio/mp3', 'audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/x-m4a', 'audio/m4a', 'audio/webm'];
         const validExtensions = ['.mp3', '.wav', '.ogg', '.m4a', '.webm', '.mp4'];
         
-        // Check if file type is valid or if extension is valid
         const hasValidType = validTypes.includes(file.type);
         const hasValidExtension = validExtensions.some(ext => file.name.toLowerCase().endsWith(ext));
         
@@ -234,48 +218,39 @@ document.addEventListener('DOMContentLoaded', function() {
         processing = true;
         uploadStartTime = Date.now();
 
-        // Reset content sections
         if (transcriptSection) transcriptSection.style.display = 'none';
         if (summarySection) summarySection.style.display = 'none';
         if (chatSection) chatSection.style.display = 'none';
         
-        // Show transcript loading animation
         if (transcriptSection && transcriptContent) {
             transcriptSection.style.display = 'block';
             transcriptContent.innerHTML = '';
             transcriptContent.appendChild(showTranscriptLoading());
         }
 
-        // Start progress animation
         simulateProgress(isLargeFile);
         
         try {
-            // Create form data to send the file
             const formData = new FormData();
             formData.append('file', file);
             
-            // For very large files, optionally add trim parameter
             if (isVeryLargeFile && confirm(`This file is very large (${fileSizeMB.toFixed(2)} MB). Would you like to process only the first 30 minutes? This is recommended for better reliability.`)) {
                 formData.append('trim_duration', '1800'); // 30 minutes in seconds
             }
             
             console.log('Sending file to backend...');
             
-            // Use different endpoints based on file size
             const endpoint = isLargeFile ? `${API_BASE_URL}/transcribe-large` : `${API_BASE_URL}/transcribe`;
             console.log('Using endpoint:', endpoint);
             
-            // Send to backend for processing with improved error handling
             const controller = new AbortController();
             const timeoutDuration = isLargeFile ? 60000 : 300000; // 1 minute for large files (just for initial response), 5 minutes for small files
             const timeoutId = setTimeout(() => controller.abort(), timeoutDuration);
             
             let response;
             try {
-                // Log request details
                 console.log('Request headers:', {
                     method: 'POST',
-                    // Can't log formData directly as it's not easily inspectable
                     formDataKeys: [...formData.keys()]
                 });
                 
@@ -289,11 +264,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Response status:', response.status);
                 console.log('Response headers:', [...response.headers.entries()]);
                 
-                // Get raw response for better debugging
                 const rawText = await response.text();
                 console.log('Raw response beginning (first 500 chars):', rawText.substring(0, 500));
                 
-                // Try to parse as JSON
                 let data;
                 try {
                     data = JSON.parse(rawText);
@@ -401,7 +374,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (transcriptContent) {
                 transcriptContent.innerHTML = '';
                 
-                // Create a more helpful error message
                 const errorContainer = document.createElement('div');
                 errorContainer.style.padding = '1rem';
                 errorContainer.style.backgroundColor = '#FEF2F2';
@@ -611,14 +583,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const data = await response.json();
             
-            // Display the summary
             summaryContent.innerHTML = '';
             summaryContent.textContent = data.summary;
-            
-            // Add fade-out class to the summarize button
             summarizeBtn.classList.add('fade-out');
             
-            // After the animation completes, actually hide the element
             setTimeout(() => {
                 summarizeBtn.style.display = 'none';
             }, 500); // This should match the CSS transition duration
@@ -638,14 +606,11 @@ document.addEventListener('DOMContentLoaded', function() {
         regenerateBtn.disabled = true;
         processing = true;
         
-        // Clear previous summary
         summaryContent.innerHTML = '';
         
-        // Add loading animation
         summaryContent.appendChild(showLoading());
         
         try {
-            // We're using the same endpoint as summarizeTranscript
             const response = await fetch(`${API_BASE_URL}/summarize`, {
                 method: 'POST',
                 headers: {
@@ -661,7 +626,6 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const data = await response.json();
             
-            // Display the new summary
             summaryContent.innerHTML = '';
             summaryContent.textContent = data.summary;
         } catch (error) {
@@ -674,7 +638,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Get current summary settings
     function getSummarySettings() {
         if (wordCountInput && summaryStyleInput) {
             const wordCount = parseInt(wordCountInput.value) || 100;
@@ -689,15 +652,12 @@ document.addEventListener('DOMContentLoaded', function() {
         return summarySettings;
     }
 
-    // Apply summary settings
     async function applySummarySettings() {
         if (!currentTranscript || processing) return;
         
-        // Get current settings
         const newSettings = getSummarySettings();
         console.log('Applying summary settings:', newSettings);
         
-        // Disable the button while processing and change its appearance
         if (applySummarySettingsBtn) {
             applySummarySettingsBtn.disabled = true;
             applySummarySettingsBtn.classList.add('disabled');
@@ -767,7 +727,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 summaryContent.innerHTML = oldContent;
             }
             
-            // Reset button state
             if (applySummarySettingsBtn) {
                 applySummarySettingsBtn.disabled = false;
                 applySummarySettingsBtn.classList.remove('disabled');
@@ -777,7 +736,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Add this handler to monitor changes in the settings inputs
     function setupSettingsChangeHandlers() {
         if (wordCountInput) {
             wordCountInput.addEventListener('input', handleSettingsChange);
@@ -788,17 +746,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // This function is called when any setting is changed
     function handleSettingsChange() {
         const currentSettings = getSummarySettings();
         
-        // Check if current settings are different from applied settings
         const isDifferent = !appliedSettings || 
                             currentSettings.wordCount !== appliedSettings.wordCount || 
                             currentSettings.style !== appliedSettings.style;
         
         if (isDifferent && applySummarySettingsBtn) {
-            // Settings have changed, reset the button to active state
             applySummarySettingsBtn.classList.remove('success', 'inactive');
         }
     }
@@ -807,19 +762,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const questionText = chatInputText.value.trim();
         if (!questionText || processing || !currentTranscript) return;
         
-        // Add user message to chat
         addMessageToChat(questionText, 'user');
         chatInputText.value = '';
         
         processing = true;
         
-        // Add loading animation
         const aiMessageContainer = document.createElement('div');
         aiMessageContainer.className = 'chat-message ai-message';
         aiMessageContainer.appendChild(showLoading());
         chatHistory.appendChild(aiMessageContainer);
         
-        // Scroll to bottom of chat
         chatHistory.scrollTop = chatHistory.scrollHeight;
         
         try {
@@ -841,18 +793,14 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const data = await response.json();
             
-            // Remove loading animation
             chatHistory.removeChild(aiMessageContainer);
             
-            // Add AI response to chat
             addMessageToChat(data.answer, 'ai');
         } catch (error) {
             console.error('Error:', error);
             
-            // Remove loading animation
             chatHistory.removeChild(aiMessageContainer);
             
-            // Add error message
             addMessageToChat('Sorry, I couldn\'t process your question. Please try again.', 'ai');
         } finally {
             processing = false;
@@ -865,7 +813,6 @@ document.addEventListener('DOMContentLoaded', function() {
         messageElement.textContent = message;
         chatHistory.appendChild(messageElement);
         
-        // Scroll to bottom of chat
         chatHistory.scrollTop = chatHistory.scrollHeight;
     }
 

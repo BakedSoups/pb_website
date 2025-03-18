@@ -14,10 +14,8 @@ import math
 from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
 load_dotenv()
 
-# Import your existing functions
 from transcriber import remove_silence, preprocess_audio, transcribe_audio
 from manage_audio import summarize_text, question
 import db_manager as db
@@ -25,10 +23,8 @@ import db_manager as db
 app = Flask(__name__, static_folder='static')
 CORS(app)  # Enable CORS for all routes
 
-# Configure max content length (1GB)
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024 * 1024  # 1GB in bytes
 
-# Configure upload folder
 UPLOAD_FOLDER = 'temp_uploads'
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
@@ -47,11 +43,8 @@ app.logger.addHandler(file_handler)
 app.logger.setLevel(logging.INFO)
 app.logger.info('Application startup')
 
-# Dictionary to track background jobs
-# In a production environment, this should be stored in a database
 background_jobs = {}
 
-# Initialize database
 db.init_db()
 
 @app.errorhandler(413)
